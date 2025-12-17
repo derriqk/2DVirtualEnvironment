@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class MapValueMaker : MonoBehaviour
 {   
-    public float[,] values = new float[100,100]; // this will hold noise value to use tiles with
+    public float[,] values; // this will hold noise value to use tiles with
+    public int gridSize; // dimensions of value must be a perfect square
     public int seed; // to be decided by player
     public GameObject spawntile; // tile to spawn
     public Sprite grass;
@@ -12,6 +13,8 @@ public class MapValueMaker : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        values = new float[gridSize, gridSize];
+
         spawntile = GameObject.FindWithTag("spawnfortiles");
         tilesParent = GameObject.FindWithTag("tilesparent");
 
@@ -28,11 +31,11 @@ public class MapValueMaker : MonoBehaviour
 
     private void populateValues(int seed)
     {
-        float scale = .35f;
+        float scale = .075f;
 
-        for (int x = 0; x < 100; x++)
+        for (int x = 0; x < gridSize; x++)
         {
-            for (int y = 0; y < 100; y++)
+            for (int y = 0; y < gridSize; y++)
             {
                 // assign the value accordingly
                 float xCoord = (float)x / 100 * 10 + seed;
@@ -45,11 +48,13 @@ public class MapValueMaker : MonoBehaviour
 
     private void spawnTiles()
     {
-        for (int x = 0; x < 100; x++)
+        int startpos = -(gridSize / 2);
+
+        for (int x = 0; x < gridSize; x++)
         {
-            for (int y = 0; y < 100; y++)
+            for (int y = 0; y < gridSize; y++)
             {
-                GameObject tile = Instantiate(spawntile, new Vector3(x, y, 0), Quaternion.identity);
+                GameObject tile = Instantiate(spawntile, new Vector3(startpos + x, startpos + y, 0), Quaternion.identity);
                 tile.transform.parent = tilesParent.transform;
                 SpriteRenderer renderer = tile.GetComponent<SpriteRenderer>();
 

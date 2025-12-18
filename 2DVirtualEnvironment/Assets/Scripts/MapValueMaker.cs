@@ -5,9 +5,13 @@ public class MapValueMaker : MonoBehaviour
     public float[,] values; // this will hold noise value to use tiles with
     public int gridSize; // dimensions of value must be a perfect square
     public int seed; // to be decided by player
+    public float scale; // noise scale
     public GameObject spawntile; // tile to spawn
+    // textures
     public Sprite grass;
     public Sprite water;
+    public Sprite mountain;
+    public Sprite sand;
     public GameObject tilesParent; // holds all tiles so it doesnt clutter hierarchy
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,7 +35,6 @@ public class MapValueMaker : MonoBehaviour
 
     private void populateValues(int seed)
     {
-        float scale = .075f;
 
         for (int x = 0; x < gridSize; x++)
         {
@@ -59,13 +62,22 @@ public class MapValueMaker : MonoBehaviour
                 SpriteRenderer renderer = tile.GetComponent<SpriteRenderer>();
 
                 // decide which sprite to use based on value
-                if (values[x,y] < 0.5f)
+                if (values[x,y] < 0.5f) // ocean
                 {
                     renderer.sprite = water;
                 }
-                else
+                else // land
                 {
-                    renderer.sprite = grass;
+                    if (values[x,y] > 0.8f) // mountain
+                    {
+                        renderer.sprite = mountain;
+                    }
+                    else if (values[x,y] > 0.65f) // grass
+                    {
+                        renderer.sprite = grass;
+                    }
+                    else // sand
+                    renderer.sprite = sand;
                 }
             }
         }

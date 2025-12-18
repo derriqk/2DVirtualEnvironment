@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &316284299
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -610,10 +610,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapValueMaker
   gridSize: 250
-  seed: 6767
+  seed: 20000
+  scale: 0.1
   spawntile: {fileID: 0}
-  grass: {fileID: 21300000, guid: cdb8fa2d0ec3df64192e91714276a7e3, type: 3}
-  water: {fileID: 21300000, guid: 51358aac587bf0f4799477ec301d5333, type: 3}
+  grass: {fileID: 21300000, guid: be86187f74161714fbb47eb9739d10a5, type: 3}
+  water: {fileID: 21300000, guid: b99420db6fd508e48ba2cdd268520fbe, type: 3}
+  mountain: {fileID: 21300000, guid: e429eabddd504324a8d33cb41204be1c, type: 3}
+  sand: {fileID: 21300000, guid: 3ea595b3e26a4f0458175130a69d0438, type: 3}
   tilesParent: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -64,20 +64,20 @@ public class MapValueMaker : MonoBehaviour
                 // decide which sprite to use based on value
                 if (values[x,y] < 0.5f) // ocean
                 {
-                    renderer.sprite = water;
+                    renderer.color = Color.blue;
                 }
                 else // land
                 {
                     if (values[x,y] > 0.8f) // mountain
                     {
-                        renderer.sprite = mountain;
+                        renderer.color = Color.gray;
                     }
                     else if (values[x,y] > 0.65f) // grass
                     {
-                        renderer.sprite = grass;
+                        renderer.color = Color.green;
                     }
                     else // sand
-                    renderer.sprite = sand;
+                    renderer.color = Color.yellow;
                 }
             }
         }

@@ -7,6 +7,7 @@ TagManager:
   - maincam
   - spawnfortiles
   - tilesparent
+  - camblock
   layers:
   - Default
   - TransparentFX

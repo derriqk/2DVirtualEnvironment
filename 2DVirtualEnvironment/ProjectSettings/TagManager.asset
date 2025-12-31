@@ -5,9 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - maincam
-  - spawnfortiles
-  - tilesparent
   - camblock
+  - foodparent
   layers:
   - Default
   - TransparentFX

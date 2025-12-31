@@ -3,17 +3,20 @@ using UnityEngine;
 public class SpawnFood : MonoBehaviour
 {
     public GameObject foodPrefab;
+    public GameObject foodParent;
     public int maxFoodItems = 20;
     public int currentFoodItems = 0;
+    public float spawnInterval = 1.0f;
 
     // bounds for spawning food
-    public float maxX = 8.0f;
-    public float maxY = 8.0f;
+    public float maxX = 35.0f;
+    public float maxY = 35.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        foodParent = GameObject.FindWithTag("foodparent");
+        InvokeRepeating("SpawnNewFood", 0f, spawnInterval);
     }
 
     // Update is called once per frame
@@ -29,7 +32,9 @@ public class SpawnFood : MonoBehaviour
             float randomX = Random.Range(-maxX, maxX);
             float randomY = Random.Range(-maxY, maxY);
             Vector2 spawnPosition = new Vector2(randomX, randomY);
-            Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+            GameObject food = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+            food.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+            food.transform.parent = foodParent.transform;
             currentFoodItems++;
         }
     }

@@ -18,7 +18,7 @@ public class foodanimation : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        float randomSize = Random.Range(.3f, 1.3f);
+        float randomSize = Random.Range(.2f, .5f);
         // multiply the parent scale by a random size
         parent.transform.localScale = new Vector3(
             parent.transform.localScale.x * randomSize,

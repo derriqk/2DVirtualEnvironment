@@ -9,8 +9,8 @@ public class SpawnFood : MonoBehaviour
     public float spawnInterval = 1.0f;
 
     // bounds for spawning food
-    public float maxX = 35.0f;
-    public float maxY = 35.0f;
+    public float maxX = 40.0f;
+    public float maxY = 40.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

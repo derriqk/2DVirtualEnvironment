@@ -110,6 +110,8 @@ MonoBehaviour:
   organ1: {fileID: 7754226735447483589}
   organ2: {fileID: 8084086475081965400}
   pulseSpeed: 0
+  minSize: 0.1
+  maxSize: 0.3
 --- !u!1 &2928503152765885202
 GameObject:
   m_ObjectHideFlags: 0

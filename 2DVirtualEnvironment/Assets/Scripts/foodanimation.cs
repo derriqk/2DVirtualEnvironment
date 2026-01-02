@@ -15,10 +15,18 @@ public class foodanimation : MonoBehaviour
     private float boundX;
     private float boundY;
 
+    [Header("Map Range")]
+    public float mapBoundX = 50.0f;
+    public float mapBoundY = 40.0f;
+
+    [Header("Food Size Range")]
+    public float minSize = 0.2f;
+    public float maxSize = 0.5f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        float randomSize = Random.Range(.2f, .5f);
+        float randomSize = Random.Range(minSize, maxSize);
         // multiply the parent scale by a random size
         parent.transform.localScale = new Vector3(
             parent.transform.localScale.x * randomSize,
@@ -56,6 +64,7 @@ public class foodanimation : MonoBehaviour
         jitter(organ1);
         jitter(organ2);
         rotateParent();
+        jitterParent();
     }
 
     private void pulse() // for the pulsing effect of the outer body, which affects the whole food item since it's the parent object
@@ -86,5 +95,24 @@ public class foodanimation : MonoBehaviour
     private void rotateParent() // for rotating the whole food item
     {
         parent.transform.Rotate(new Vector3(0, 0, randomRotate) * Time.deltaTime);
+    }
+
+    private void jitterParent() // for slightly moving main parent, bounds is the whole map
+    {
+        float jitterX = Random.Range(-0.01f, 0.01f);
+        float jitterY = Random.Range(-0.01f, 0.01f);
+
+        // check bounds
+        Vector3 currentPos = parent.transform.localPosition;
+        if (currentPos.x + jitterX > mapBoundX || currentPos.x + jitterX < -mapBoundX)
+        {
+            jitterX = -jitterX;
+        }   
+        if (currentPos.y + jitterY > mapBoundY || currentPos.y + jitterY < -mapBoundY)
+        {
+            jitterY = -jitterY;
+        }
+        parent.transform.localPosition += new Vector3(jitterX, jitterY, 0);
+
     }
 }

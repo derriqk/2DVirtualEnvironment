@@ -9,20 +9,17 @@ public class SpawnFood : MonoBehaviour
     public float spawnInterval = 1.0f;
 
     // bounds for spawning food
-    public float maxX = 40.0f;
-    public float maxY = 40.0f;
+    private float maxX = 40.0f;
+    private float maxY = 40.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         foodParent = GameObject.FindWithTag("foodparent");
-        InvokeRepeating("SpawnNewFood", 0f, spawnInterval);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < maxFoodItems; i++)
+        {
+            SpawnNewFood();
+        }
     }
 
     public void SpawnNewFood()

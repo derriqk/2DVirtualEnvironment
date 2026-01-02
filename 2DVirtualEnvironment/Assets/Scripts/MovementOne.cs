@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+// for a directional movement style
+
 public class MovementOne : MonoBehaviour
 {
     public GameObject selfObject;
@@ -9,6 +11,9 @@ public class MovementOne : MonoBehaviour
     private float interval;
     private float timer = 0f;
     private float maxDistance = 40.0f;
+
+    private float parentRotateInterval = 0.1f;
+    private float parentRotateTimer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,11 +32,17 @@ public class MovementOne : MonoBehaviour
             interval = Random.Range(1f, 3f);
         }
         moveForward(); // per frame, or set to use a timer again
+        
+        if (parentRotateTimer >= parentRotateInterval)
+        {
+            selfObject.transform.Rotate(0, 0, Random.Range(-1f, 1f));
+            parentRotateTimer = 0f;
+        }
     }
 
     private void pickRandomRotation()
     {
-        // if nose is too far from center just turn 180
+        // if nose is too far from center just turn 90
         if (nose.transform.position.magnitude > maxDistance)
         {
             float flipRotation = 90f; 
@@ -68,4 +79,5 @@ public class MovementOne : MonoBehaviour
         Vector3 direction = (nose.transform.position - selfObject.transform.position).normalized;
         selfObject.transform.position += direction * moveSpeed * Time.deltaTime;
     }
+
 }

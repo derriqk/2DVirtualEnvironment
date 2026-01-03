@@ -1,10 +1,12 @@
 using UnityEngine;
+
+// use this for dynamic list of organs to jitter (chains)
 using System.Collections.Generic;
 
-public class organJitter : MonoBehaviour
+public class OrganJitterList : MonoBehaviour
 {
     public List<GameObject> organs; // dynamic, set this in the inspector
-    public GameObject outerbody;
+    public List<GameObject> outerbody; // outer bodies for each organ list, keep it parallel
     public bool rotateOrgans = true;
     private float boundX;
     private float boundY;
@@ -12,20 +14,20 @@ public class organJitter : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // set bounds for jittering
-        boundX = outerbody.transform.localScale.x * 0.05f;
-        boundY = outerbody.transform.localScale.y * 0.05f;
-
-        randRotate = Random.Range(2f, 7f);
+        if (rotateOrgans) randRotate = Random.Range(2f, 7f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject organ in organs)
+        for (int i = 0; i < organs.Count; i++)
         {
-            jitter(organ);
-            if (rotateOrgans) rotate(organ);
+            // set bounds for jittering
+            boundX = outerbody[i].transform.localScale.x * 0.05f;
+            boundY = outerbody[i].transform.localScale.y * 0.05f;
+            
+            jitter(organs[i]);
+            if (rotateOrgans) rotate(organs[i]);
         }
     }
 

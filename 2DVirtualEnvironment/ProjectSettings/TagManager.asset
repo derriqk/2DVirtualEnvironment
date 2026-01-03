@@ -9,6 +9,7 @@ TagManager:
   - foodparent
   - greenparent
   - purpparent
+  - yellowparent
   layers:
   - Default
   - TransparentFX

@@ -1,10 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EvalJitterList : MonoBehaviour
 {
     public GameObject[] evalObjects;
     private float randDelayTime;
     private float randSpeed;
+    private float boundX = 0.1f;
+    private float boundY = 0.1f;
 
     // Update is called once per frame
     void Update()
@@ -13,6 +16,7 @@ public class EvalJitterList : MonoBehaviour
         {
             jitterEVal(evalObject);
         }
+
     }
 
     private void jitterEVal(GameObject evalObject)
@@ -20,9 +24,18 @@ public class EvalJitterList : MonoBehaviour
         randDelayTime = Random.Range(0.5f, 2f);
         randSpeed = Random.Range(1f, 3f);
 
-        float jitterX = Mathf.PerlinNoise(Time.time * randSpeed, 0f + randDelayTime) - 0.5f;
-        float jitterY = Mathf.PerlinNoise(0f + randDelayTime, Time.time * randSpeed) - 0.5f;
+        float jitterX = Random.Range(-0.02f, 0.02f);
+        float jitterY = Random.Range(-0.02f, 0.02f);
 
-        evalObject.transform.localPosition += new Vector3(jitterX * 0.01f, jitterY * 0.01f, 0);
+        if (evalObject.transform.localPosition.x + jitterX > boundX || evalObject.transform.localPosition.x + jitterX < -boundX)
+        {
+            jitterX = -jitterX;
+        }
+        if (evalObject.transform.localPosition.y + jitterY > boundY || evalObject.transform.localPosition.y + jitterY < -boundY)
+        {
+            jitterY = -jitterY;
+        }
+
+        evalObject.transform.localPosition += new Vector3(jitterX * 0.4f, jitterY * 0.4f, 0);
     }
 }

@@ -10,6 +10,8 @@ TagManager:
   - greenparent
   - purpparent
   - yellowparent
+  - mapextra
+  - spawnblock
   layers:
   - Default
   - TransparentFX

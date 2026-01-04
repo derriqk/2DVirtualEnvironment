@@ -14,6 +14,7 @@ public class MovementOne : MonoBehaviour
 
     private float parentRotateInterval = 0.1f;
     private float parentRotateTimer = 0f;
+    private bool isFixingRotation = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +25,7 @@ public class MovementOne : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isFixingRotation) return;
         timer += Time.deltaTime;
         if (timer >= interval)
         {
@@ -46,19 +48,26 @@ public class MovementOne : MonoBehaviour
         float mag = nose.transform.position.magnitude;
         if (mag > maxDistance)
         {
-            float flipRotation = 45f;
-            StartCoroutine(RotateOverTime(flipRotation, .1f));
-
-            for (int i = 0; i < 100; i++)
-            {
-                moveForward();
-            }
+            isFixingRotation = true;
+            StartCoroutine(fixRotate());
             return;
         }
 
         // random rotate
         float randomRotate = Random.Range(-45f, 45f);
         StartCoroutine(RotateOverTime(randomRotate, 1f));
+    }
+
+    private IEnumerator fixRotate()
+    {
+        float mag = nose.transform.position.magnitude;
+        while (mag > maxDistance)
+        {
+            selfObject.transform.Rotate(0, 0, 10f); // rotate quickly to face center
+            mag = nose.transform.position.magnitude;
+            yield return null;
+        }
+        isFixingRotation = false;
     }
 
     private IEnumerator RotateOverTime(float angle, float duration)

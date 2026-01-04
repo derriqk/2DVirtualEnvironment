@@ -12,8 +12,8 @@ public class SpawnOrganism : MonoBehaviour
     private GameObject yellowParent;
 
     // bounds for spawning
-    private float maxX = 40.0f;
-    private float maxY = 40.0f;
+    private float maxX = 30.0f;
+    private float maxY = 30.0f;
 
     // start counts
     [Header("Starting Organism Counts")]

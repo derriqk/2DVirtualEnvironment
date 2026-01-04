@@ -42,8 +42,8 @@ public class SpawnBackground : MonoBehaviour
     {
         while (speck.transform.position.x < maxX)
         {
-            speck.transform.Translate(Vector3.right * speed * Time.deltaTime);
             Vector3 pos = speck.transform.localPosition;
+            pos.x += speed * Time.deltaTime;
             pos.y += Random.Range(-0.03f, 0.03f); // slight random drift up and down
             speck.transform.localPosition = pos;
             yield return null;
@@ -51,6 +51,7 @@ public class SpawnBackground : MonoBehaviour
 
         speck.transform.localPosition = new Vector3(spawnBounds.min.x, Random.Range(spawnBounds.min.y, spawnBounds.max.y), 0);
         speck.transform.localScale = Vector3.one; // reset scale
+        speck.transform.Rotate(0, 0, Random.Range(0f, 360f)); // random rotation
         speck.transform.localScale *= Random.Range(minsize, maxsize);
         speed = decideSpeckSpeed(speck);
         StartCoroutine(drift(speck, speed));
@@ -61,7 +62,8 @@ public class SpawnBackground : MonoBehaviour
         float spawnY = Random.Range(spawnBounds.min.y, spawnBounds.max.y);
         Vector3 spawnPos = new Vector3(spawnBounds.min.x + headstart, spawnY, speckPrefab.transform.position.z);
         GameObject speck = Instantiate(speckPrefab, spawnPos, Quaternion.identity);
-        speck.transform.localScale *= Random.Range(minsize, maxsize);
+        speck.transform.localScale *= Random.Range(minsize, maxsize); // random size
+        speck.transform.Rotate(0, 0, Random.Range(0f, 360f)); // random rotation
         speck.transform.parent = objParent.transform;
         float speed = decideSpeckSpeed(speck);
         StartCoroutine(drift(speck, speed));

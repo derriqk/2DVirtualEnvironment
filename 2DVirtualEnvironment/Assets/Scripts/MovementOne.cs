@@ -42,13 +42,14 @@ public class MovementOne : MonoBehaviour
 
     private void pickRandomRotation()
     {
-        // if nose is too far from center just turn 90
-        if (nose.transform.position.magnitude > maxDistance)
+        // if nose is too far from center just flip the direction
+        float mag = nose.transform.position.magnitude;
+        if (mag > maxDistance)
         {
-            float flipRotation = 90f; 
-            StartCoroutine(RotateOverTime(flipRotation, 1f));
+            float flipRotation = 45f;
+            StartCoroutine(RotateOverTime(flipRotation, .1f));
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 100; i++)
             {
                 moveForward();
             }

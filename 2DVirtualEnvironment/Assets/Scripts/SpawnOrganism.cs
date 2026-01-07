@@ -53,7 +53,7 @@ public class SpawnOrganism : MonoBehaviour
         newOrg.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
 
         // random scale
-        float randScale = Random.Range(0.5f, 1.5f);
+        float randScale = Random.Range(0.5f, 1f);
         newOrg.transform.localScale = new Vector3(randScale, randScale, 1);
 
         

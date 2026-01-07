@@ -49,7 +49,26 @@ public class SpawnBackground : MonoBehaviour
             yield return null;
         }
 
-        speck.transform.localPosition = new Vector3(spawnBounds.min.x, Random.Range(spawnBounds.min.y, spawnBounds.max.y), 0);
+        //speck.transform.localPosition = new Vector3(spawnBounds.min.x, Random.Range(spawnBounds.min.y, spawnBounds.max.y), 0);
+        speck.transform.localScale = Vector3.one; // reset scale
+        speck.transform.Rotate(0, 0, Random.Range(0f, 360f)); // random rotation
+        speck.transform.localScale *= Random.Range(minsize, maxsize);
+        speed = decideSpeckSpeed(speck);
+        StartCoroutine(reverseDrift(speck, speed));
+    }
+
+    private IEnumerator reverseDrift(GameObject speck, float speed)
+    {
+        while (speck.transform.position.x > maxX * -1)
+        {
+            Vector3 pos = speck.transform.localPosition;
+            pos.x -= speed * Time.deltaTime;
+            pos.y += Random.Range(-0.03f, 0.03f); // slight random drift up and down
+            speck.transform.localPosition = pos;
+            yield return null;
+        }
+
+        //speck.transform.localPosition = new Vector3(spawnBounds.min.x, Random.Range(spawnBounds.min.y, spawnBounds.max.y), 0);
         speck.transform.localScale = Vector3.one; // reset scale
         speck.transform.Rotate(0, 0, Random.Range(0f, 360f)); // random rotation
         speck.transform.localScale *= Random.Range(minsize, maxsize);
